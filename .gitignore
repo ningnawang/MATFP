@@ -1,0 +1,21 @@
+# Extern
+/extern/.cache
+/extern/cli11
+/extern/fmt
+/extern/geogram
+/extern/libigl
+/extern/spdlog
+/extern/polyscope
+*extern*/*
+
+# Build
+*build*/*
+.idea/*
+.vscode/
+.DS_Store
+test.cpp
+
+
+# Output
+*out*/*
+*sup*/*
