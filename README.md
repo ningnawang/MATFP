@@ -1,8 +1,8 @@
 # Computing Medial Axis Transform with Feature Preservation via Restricted Power Diagram
 
-Please refer to our [paper](https://arxiv.org/abs/2210.13676) and [project](https://sites.google.com/view/ningnawang/publications/matfp) for more detail. This project is licensed under the terms of the `MIT license`.
+Please refer to our [paper](https://arxiv.org/abs/2210.13676) and [project](https://ningnawang.github.io/projects/matfp/) for more detail. This project is licensed under the terms of the `MIT license`.
 
-![](https://github.com/junanita/matfp/blob/main/figures/teaser.png)
+![](./figures/teaser.png)
 
 ```
 @article{2022MATFP,
