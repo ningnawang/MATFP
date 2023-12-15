@@ -13,8 +13,7 @@
 
 #include <memory>
 
-#include "matfp/Logger.h"
-#include "matfp/Types/CommonTypes.h"
+#include "Types/CommonTypes.h"
 
 namespace matfp {
 

@@ -44,7 +44,7 @@ option(GEOGRAM_WITH_TETGEN "Tetrahedral mesher (Hang Si's TetGen)" ON)
 option(GEOGRAM_WITH_TRIANGLE "Triangle mesher (Jonathan Shewchuk's triangle)" ON)
 option(GEOGRAM_WITH_EXPLORAGRAM "Experimental code (hexahedral meshing vpipeline and optimal transport)" OFF)
 option(GEOGRAM_WITH_LUA "Built-in LUA interpreter" OFF)
-option(GEOGRAM_LIB_ONLY "Libraries only (no example programs/no viewer)" OFF)
+option(GEOGRAM_LIB_ONLY "Libraries only (no example programs/no viewer)" ON)
 option(GEOGRAM_WITH_FPG "Predicate generator (Sylvain Pion's FPG)" ON)
 option(GEOGRAM_USE_SYSTEM_GLFW3 "Use the version of GLFW3 installed in the system if found" OFF)
 

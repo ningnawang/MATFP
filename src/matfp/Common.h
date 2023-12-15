@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "matfp/AABBWrapper.h"
+#include "matfp/Logger.h"
 #include "matfp/Types/CommonTypes.h"
 
 #define TIMING_BREAKDOWN true
