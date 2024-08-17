@@ -257,8 +257,7 @@ class NonManifoldMesh {
   std::set<std::array<int, 2>> mat_extf_edges;
 
   // for internal medial features
-  std::set<std::array<int, 2>>
-      mat_intf_edges;
+  std::set<std::array<int, 2>> mat_intf_edges;
   std::map<int, std::unordered_set<int>> mat_intf_adjs;  // valid_idx
   bool is_feature_edge_exists(const int v1, const int v2) const;
   void insert_new_feature_edge(const int v1, const int v2);
@@ -374,9 +373,23 @@ class NonManifoldMesh {
 };  // NonManifoldMesh
 
 class MatIO {
+ private:
+  static void get_mat_clean(const NonManifoldMesh& mat,
+                            std::vector<Vector4>& vertices,
+                            std::vector<std::array<int, 2>>& edges,
+                            std::vector<std::array<int, 3>>& faces);
+  static void export_ma_given(const std::string& maname,
+                              const std::vector<Vector4>& mat_vertices,
+                              const std::vector<std::array<int, 2>>& mat_edges,
+                              const std::vector<std::array<int, 3>>& mat_faces,
+                              bool is_use_given_name = false);
+
  public:
   // load the user defined mat
   static void load_nmm(const std::string& path, NonManifoldMesh& mat);
+
+  static void export_ma_clean(const std::string& maname,
+                              const NonManifoldMesh& mat);
 
   static void export_nmm(const std::string& maname, const NonManifoldMesh& mat);
   // save as .r file (for ET)

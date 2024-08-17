@@ -217,8 +217,8 @@ int NonManifoldMesh::create_tet(const std::vector<int> vids, int tag,
         tet.neigh_tets_.insert(face.tets_.begin(), face.tets_.end());
         fids.push_back(fid);
       }  // k
-    }    // j
-  }      // i
+    }  // j
+  }  // i
 
   if (fids.size() != 4) {
     logger().error("[MAT TET] error creating tet {}, fids size not 4: {}", tag,
@@ -953,6 +953,138 @@ void MatIO::load_nmm(const std::string& path, NonManifoldMesh& mat) {
   mat.compute_edges_cone();
   mat.compute_faces_simple_triangles();
   mat.print_info();
+}
+
+// this export is matching blender addon
+// https://github.com/songshibo/blender-mat-addon
+//
+/* # .ma format
+ * numVertices numEdges numFaces
+ * v x y z r
+ * e v1 v2
+ * f v1 v2 v3
+ */
+void MatIO::export_ma_given(const std::string& maname,
+                            const std::vector<Vector4>& mat_vertices,
+                            const std::vector<std::array<int, 2>>& mat_edges,
+                            const std::vector<std::array<int, 3>>& mat_faces,
+                            bool is_use_given_name) {
+  std::string ma_name_full = maname;
+  if (!is_use_given_name)
+    ma_name_full = "../out/mat/mat_" + maname + "_" + get_timestamp() + ".ma";
+
+  std::ofstream fout;
+  fout.open(ma_name_full, std::ofstream::out | std::ofstream::app);  //   append
+  fout << mat_vertices.size() << " " << mat_edges.size() << " "
+       << mat_faces.size() << std::endl;
+
+  // save vertices
+  for (int i = 0; i < mat_vertices.size(); i++) {
+    const auto& mat_v = mat_vertices.at(i);
+    fout << "v " << std::setiosflags(std::ios::fixed) << std::setprecision(15)
+         << mat_v[0] << " " << mat_v[1] << " " << mat_v[2] << " " << mat_v[3];
+    fout << std::endl;
+  }
+
+  //  save edges
+  for (int i = 0; i < mat_edges.size(); i++) {
+    const auto& mat_e = mat_edges[i];
+    fout << "e " << mat_e[0] << " " << mat_e[1];
+    fout << std::endl;
+  }
+
+  // save faces
+  for (int i = 0; i < mat_faces.size(); i++) {
+    const auto& mat_f = mat_faces[i];
+    fout << "f";
+    for (uint v = 0; v < 3; v++) fout << " " << mat_f[v];
+    fout << std::endl;
+  }
+  fout.close();
+
+  printf("saved mat at: %s \n", ma_name_full.c_str());
+}
+
+// helper function for export_ma_clean() and export_ma_ply()
+void MatIO::get_mat_clean(const NonManifoldMesh& mat,
+                          std::vector<Vector4>& vertices,
+                          std::vector<std::array<int, 2>>& edges,
+                          std::vector<std::array<int, 3>>& faces) {
+  std::map<int, int> map_vertices;  // mat vertex tag to new
+  vertices.clear();
+  edges.clear();
+  faces.clear();
+
+  auto get_vertex_mapped_id = [&](const int vid) {
+    if (map_vertices.find(vid) == map_vertices.end()) {
+      // add a new vertex
+      map_vertices[vid] = map_vertices.size();
+    }
+    return map_vertices.at(vid);
+  };
+
+  // faces
+  for (int f = 0; f < mat.faces.size(); f++) {
+    const auto& face = *mat.faces[f].second;
+    if (face.is_deleted) continue;
+    std::array<int, 3> one_f;
+    for (uint j = 0; j < 3; j++) {
+      int vid = get_vertex_mapped_id(*std::next(face.vertices_.begin(), j));
+      one_f[j] = vid;
+    }
+    faces.push_back(one_f);
+  }
+  printf("faces: %d \n", faces.size());
+
+  // edges
+  for (int e = 0; e < mat.edges.size(); e++) {
+    const auto& edge = *mat.edges[e].second;
+    if (edge.is_deleted) continue;
+    // if (edge.faces_.empty()) continue;
+    int vid1 = get_vertex_mapped_id(edge.vertices_.first);
+    int vid2 = get_vertex_mapped_id(edge.vertices_.second);
+    edges.push_back({{vid1, vid2}});
+  }
+  printf("edges: %d \n", edges.size());
+
+  // vertices
+  // save from map_vertices, to avoid (0,0,0,0) in .ma file
+  vertices.resize(map_vertices.size());
+  for (const auto& v_pair : map_vertices) {
+    int old_vid = v_pair.first;
+    int new_vid = v_pair.second;
+    const auto& mat_v = *mat.vertices[old_vid].second;
+    vertices[new_vid] =
+        Vector4(mat_v.pos[0], mat_v.pos[1], mat_v.pos[2], mat_v.radius);
+  }
+
+  printf("vertcies: %d \n", vertices.size());
+}
+
+// remove deleted edges/faces
+// should save the same result as export_ma_ply but with different format
+//
+// this export is matching blender addon
+// https://github.com/songshibo/blender-mat-addon
+/* # .ma format
+ * numVertices numEdges numFaces
+ * v x y z r
+ * e v1 v2
+ * f v1 v2 v3
+ */
+void MatIO::export_ma_clean(const std::string& maname,
+                            const NonManifoldMesh& mat) {
+  std::string ma_name_full =
+      "../out/mat/mat_" + maname + "_" + get_timestamp() + ".ma";
+  printf("start saving mat .m file: %s \n", ma_name_full.c_str());
+
+  std::vector<Vector4> vertices;
+  std::vector<std::array<int, 2>> edges;
+  std::vector<std::array<int, 3>> faces;
+  get_mat_clean(mat, vertices, edges, faces);
+
+  // export
+  export_ma_given(maname, vertices, edges, faces);
 }
 
 // this export is matching blender addon

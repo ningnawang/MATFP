@@ -309,7 +309,9 @@ void GuiWindow::callbacks() {
   }
   ImGui::SameLine();
   if (ImGui::SmallButton("save MAT .ma")) {
-    MatIO::export_nmm(instance_->m_shape3D->mat_refined.mat_name,
+    // MatIO::export_nmm(instance_->m_shape3D->mat_refined.mat_name,
+    //                   instance_->m_shape3D->mat_refined);
+    MatIO::export_ma_clean(instance_->m_shape3D->mat_refined.mat_name,
                       instance_->m_shape3D->mat_refined);
     logger().info("Saved MAT to {}.ma",
                   instance_->m_shape3D->mat_refined.mat_name);
