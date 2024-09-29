@@ -1,4 +1,4 @@
-# Computing Medial Axis Transform with Feature Preservation via Restricted Power Diagram
+# Computing Medial Axis Transform with Feature Preservation via Restricted Power Diagram :star2: SIGGRAPH Asia 2022
 
 This project is licensed under the terms of the `MIT license`. Please refer to the following resources for more detail:
 
