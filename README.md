@@ -1,6 +1,8 @@
 # Computing Medial Axis Transform with Feature Preservation via Restricted Power Diagram
 
-Please refer to our [paper](https://arxiv.org/abs/2210.13676) and [project](https://ningnawang.github.io/projects/matfp/) for more detail. This project is licensed under the terms of the `MIT license`.
+This project is licensed under the terms of the `MIT license`. Please refer to the following resources for more detail:
+
+:cactus: [[**MATFP Project**](https://ningnawang.github.io/projects/2022_matfp/)]  :cactus: [[**MATFP Paper** (low res)](https://arxiv.org/abs/2210.13676)] :cactus: [[**MATFP Video** (YouTube)](https://youtu.be/0kP_EMtER-w?si=CyLhzKGUlTysoEUN)]  :cactus: [[**MATFP Video** (Bilibili)](https://www.bilibili.com/video/BV11hxqeqEcS/?share_source=copy_web&vd_source=085704da2cca04123412fb29bb28af85)]
 
 ![](./figures/teaser.png)
 
@@ -15,6 +17,12 @@ Please refer to our [paper](https://arxiv.org/abs/2210.13676) and [project](http
   publisher={ACM New York, NY, USA}
 }
 ```
+
+## Related Project MATTopo:
+Our extended **SIGGRAPH Asia 2024** project **MATTopo: Topology-preserving Medial Axis Transform with Restricted Power Diagram** preserves the topological equivalence of the 3D medial mesh with respect to the input model.
+
+:pineapple: [[**MATTopo Project**](https://ningnawang.github.io/projects/2024_mattopo/)] :pineapple: [[**MATTopo Paper** (low res)](https://arxiv.org/abs/2403.18761)] :pineapple: [[**MATTopo Code**](https://github.com/ningnawang/MATTopo)] :pineapple: [[**MATTopo Video** (YouTube)](https://www.youtube.com/watch?v=8AxJYVtU0SA)] :pineapple: [[**MATTopo Video** (Bilibili)](https://www.bilibili.com/video/BV1ZKxNeeEPF/?share_source=copy_web&vd_source=085704da2cca04123412fb29bb28af85)]
+
 
 ## Installation (MacOS)
 
