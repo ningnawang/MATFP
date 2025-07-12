@@ -285,7 +285,8 @@ void collect_and_update_DT_feature_tets(
       TET_TYPE tet_type = get_nonfeature_tet_type(tet_vs_tags, tet_vs_normals,
                                                   tet_vs_bucket, is_debug);
       if (is_debug) {
-        logger().error("cell_tag {} tet_type: {}", cell_tag, tet_type);
+        logger().error("cell_tag {} tet_type: {}", cell_tag,
+                       static_cast<int>(tet_type));
       }
       // 4:0 is sliver, we do not know how to handle
       if (tet_type == TET_TYPE::T4_0) {

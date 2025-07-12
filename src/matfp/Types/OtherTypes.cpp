@@ -428,8 +428,8 @@ void MVertex::print_info() const {
       "radius_dilated: {}",
       pos[0], pos[1], pos[2], sq_radius, std::sqrt(sq_radius),
       sq_radius_dilated, std::sqrt(sq_radius_dilated));
-  logger().info("type: {}, added_for_two_spheres: {}, dt_seed_ids: {}", type,
-                added_for_two_spheres, dt_seed_ids);
+  logger().info("type: {}, added_for_two_spheres: {}, dt_seed_ids: {}",
+                static_cast<int>(type), added_for_two_spheres, dt_seed_ids);
   logger().info("#cc_parts: {}, #tan_planes: {}, #tan_cc_lines: {}",
                 cc_parts.size(), tan_planes.size(), tan_cc_lines.size());
 

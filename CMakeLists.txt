@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.16)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 set(CGAL_DO_NOT_WARN_ABOUT_CMAKE_BUILD_TYPE TRUE)
@@ -17,21 +17,6 @@ option(AUTO_DOWNLOAD "Auto download dependencies" ON)
 # ###############################################################################
 # matfp
 option(MATFP_WITH_HUNTER "Use Hunter to download and configure Boost" OFF)
-
-# libigl library
-option(LIBIGL_USE_STATIC_LIBRARY "Use libigl as static library" OFF)
-option(LIBIGL_WITH_ANTTWEAKBAR "Use AntTweakBar" OFF)
-option(LIBIGL_WITH_CGAL "Use CGAL" ON)
-option(LIBIGL_WITH_COMISO "Use CoMiso" OFF)
-option(LIBIGL_WITH_CORK "Use Cork" OFF)
-option(LIBIGL_WITH_LIM "Use LIM" OFF)
-option(LIBIGL_WITH_MATLAB "Use Matlab" OFF)
-option(LIBIGL_WITH_MOSEK "Use MOSEK" OFF)
-option(LIBIGL_WITH_PNG "Use PNG" OFF)
-option(LIBIGL_WITH_PYTHON "Use Python" OFF)
-option(LIBIGL_WITH_TETGEN "Use Tetgen" OFF)
-option(LIBIGL_WITH_TRIANGLE "Use Triangle" OFF)
-option(LIBIGL_WITH_XML "Use XML" OFF)
 
 # gui
 option(LIBIGL_WITH_EMBREE "Use Embree" OFF)
@@ -59,6 +44,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++lastest")
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic-errors -Wno-missing-field-initializers -Wno-missing-braces -Wall -pthread -fsanitize=address -g -fno-omit-frame-pointer")
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pthread -D_DEBUG")
 
+message("${CMAKE_CXX_COMPILER_ID} compiler detected")
 # ## Configure the compiler
 # This is a basic, decent setup that should do something sane on most compilers
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
@@ -85,6 +71,8 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STRE
 	# SET(CMAKE_CXX_FLAGS_RELEASE        "-O3 -march=native -DNDEBUG")
 	# '-march=native' would cause M1 printing 'error: unknown target CPU 'vortex''
 	SET(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
+
+	set(CMAKE_OSX_ARCHITECTURES "x86_64")
 
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	# using Visual Studio C++
@@ -237,9 +225,9 @@ add_library(libMATFP
 # ###############################################################################
 target_include_directories(libMATFP
 	PRIVATE
-	src
+		src
 	PUBLIC
-	include
+		include
 )
 
 # ###############################################################################
@@ -252,7 +240,7 @@ target_link_libraries(libMATFP
 	spdlog::spdlog
 	polyscope
 	PRIVATE
-	igl::cgal
+	igl_copyleft::cgal # from libigl
 	warnings::all
 )
 
@@ -268,11 +256,10 @@ add_executable(MATFP src/main.cpp)
 target_link_libraries(MATFP
 	libMATFP
 	CLI11::CLI11
-	igl::cgal
+	igl_copyleft::cgal # from libigl
 	warnings::all
 )
 target_include_directories(MATFP PRIVATE src)
-igl_copy_cgal_dll(MATFP)
 
 # Install
 install(TARGETS MATFP RUNTIME DESTINATION bin)
@@ -294,12 +281,12 @@ add_library(libMATFP_PRE
 target_include_directories(libMATFP_PRE PUBLIC include)
 target_link_libraries(libMATFP_PRE
 	PUBLIC
-	geogram
-	igl::core
-	spdlog::spdlog
-	polyscope
+		geogram
+		igl::core
+		spdlog::spdlog
+		polyscope
 	PRIVATE
-	warnings::all
+		warnings::all
 )
 add_executable(MATFP_PRE src/pre/pre_main.cpp)
 target_link_libraries(MATFP_PRE
@@ -308,7 +295,6 @@ target_link_libraries(MATFP_PRE
 	warnings::all
 )
 
-# target_include_directories(MATFP_PRE PRIVATE src)
 
 # ###############################################################################
 # Folders for Visual Studio/XCode IDEs

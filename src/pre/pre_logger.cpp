@@ -46,7 +46,7 @@ void Logger::init(bool use_cout, const std::string &filename, bool truncate) {
   logger_ = std::make_shared<spdlog::async_logger>(
       "pre_matfp", sinks.begin(), sinks.end(), std::move(tp),
       spdlog::async_overflow_policy::block);
-  registry_inst.register_and_init(logger_);
+  registry_inst.register_logger(logger_);
 }
 
 }  // namespace matfp

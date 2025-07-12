@@ -481,7 +481,7 @@ void update_tan_cc_lines_using_RPD(
       //   }
       // }  // for mat_p.tan_cc_lines
     }  // for rpd_mesh.facets.corners
-  }    // for rpd_mesh.facets
+  }  // for rpd_mesh.facets
 
   // // sanity check
   // // all spheres contains cc should be updated their cc normals
@@ -800,9 +800,10 @@ void update_spheres(const GEO::Mesh& sf_mesh,
           "{} -> "
           "{}, "
           "sq_radius_dilated: {}",
-          mat_p.tag, mat_p.type, mat_p.old_pos[0], mat_p.old_pos[1],
-          mat_p.old_pos[2], mat_p.pos[0], mat_p.pos[1], mat_p.pos[2],
-          mat_p.old_sq_radius, mat_p.sq_radius, mat_p.sq_radius_dilated);
+          mat_p.tag, static_cast<int>(mat_p.type), mat_p.old_pos[0],
+          mat_p.old_pos[1], mat_p.old_pos[2], mat_p.pos[0], mat_p.pos[1],
+          mat_p.pos[2], mat_p.old_sq_radius, mat_p.sq_radius,
+          mat_p.sq_radius_dilated);
     }
     sorted_partial_medial_spheres.push_back(mat_p);
 

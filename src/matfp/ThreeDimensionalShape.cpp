@@ -27,7 +27,8 @@ void SpecialEdge::print_info() const {
       "-- SpecialEdge {}: type: {}, cc_line_id: {}, mat_se_tags: {}, "
       "vs_seed_ids: {}, "
       "adj_ref_fs_pair: {}",
-      id, type, cc_line_id, mat_se_tags, vs_seed_ids, adj_ref_fs_pair);
+      id, static_cast<int>(type), cc_line_id, mat_se_tags, vs_seed_ids,
+      adj_ref_fs_pair);
 }
 
 SpecialCorner::SpecialCorner(const int _id, const int _s_id,

@@ -45,7 +45,8 @@ endif()
 # libigl
 if(NOT TARGET igl::core)
 	matfp_download_libigl()
-	find_package(LIBIGL REQUIRED)
+	add_subdirectory(${MATFP_EXTERNAL}/libigl)
+	igl_include(copyleft cgal)
 endif()
 
 # CL11

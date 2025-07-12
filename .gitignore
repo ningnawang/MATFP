@@ -16,6 +16,10 @@
 test.cpp
 
 
+# Models
+models/cube/*
+models/xurui/*
+
 # Output
 *out*/*
 *sup*/*

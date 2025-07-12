@@ -1,24 +1,34 @@
+// This file is part of MATFP, a software for computing medial axis transform
+// with feature preservation.
+//
+// Copyright (C) 2022 Ningna Wang <ningna.wang@utdallas.edu>
+//
+// This Source Code Form is subject to the terms of the MIT license.
+//
 #pragma once
 
-#include <fmt/ranges.h>
+// Must come first
+#include <matfp/LoggerFormatter.h>
+
+// These can come after
 #include <matfp/DisableWarnings.h>
 #include <matfp/EnableWarnings.h>
 #include <matfp/Exception.h>
-#include <spdlog/async.h>
 #include <spdlog/spdlog.h>
+
+#include <memory>
 
 namespace matfp {
 
 struct Logger {
-  static std::shared_ptr<spdlog::async_logger> logger_;
+  static std::shared_ptr<spdlog::logger> logger_;
 
-  // By default, write to stdout, but don't write to any file
   static void init(std::string log_name = "", bool use_cout = true,
-                   const std::string &filename = "", bool truncate = true);
+                   const spdlog::filename_t& filename = spdlog::filename_t(),
+                   bool truncate = true);
 };
 
-// Retrieve current logger, or create one if not available
-inline spdlog::async_logger &logger() {
+inline spdlog::logger& logger() {
   if (!Logger::logger_) {
     Logger::init();
   }

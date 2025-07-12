@@ -58,7 +58,7 @@ Other external dependencies will be auto-downloaded during CMake compiling, incl
 3. [geogram](https://github.com/alicevision/geogram.git)
 4. [libigl](https://github.com/libigl/libigl.git)
 5. [polyscope](https://github.com/nmwsharp/polyscope.git)
-7. [spdlog](https://github.com/gabime/spdlog.git)
+6. [spdlog](https://github.com/gabime/spdlog.git)
 
 
 **NOTE**: During compilation, you may see error in geogram: `In grogram/src/bin/fpg/SymbolEnvironment.cpp "malloc.h" not found`. This is because "malloc.h" is deprecated, and can be simply fixed by removing line 11 "#include malloc.h".
@@ -160,6 +160,19 @@ The solution is easy, just comment line 11 under file `matfp/extern/geogram/src/
 Then rerun the `make -j4`.
 
 
+## Logs
+- 2025-07-12: 
+  - Tested on upgraded `cmake` version 4.0.3
+  - Upgrade dependencies:
+    - `libigl`: v2.6.0
+    - `geogram`: v1.9.6
+    - `spdlog`: v1.15.3
+    - `fmt`: 11.2.0 (for `spdlog`)
+    - `CLI11`: v2.5.0
+    - `polyscope`: v2.4.0
+
 ## Copyright
 
 All licenses in this repository are copyrighted by their respective authors. See `LICENSE` for details.
+
+

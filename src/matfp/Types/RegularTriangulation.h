@@ -179,7 +179,7 @@ class RegularTriangulationNN : public Rt, public GEO::Counted {
   /**
    * \brief RegularTriangulationNN destructor
    */
-  ~RegularTriangulationNN(){};
+  ~RegularTriangulationNN() {};
 
   std::vector<RTI> rt_ts_info;  // RT tetras
   std::vector<RFI> rt_fs_info;  // RT faces

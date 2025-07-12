@@ -57,7 +57,7 @@ class Cone {
  public:
   inline void print_info() {
     logger().info("------ Cone Info ------");
-    logger().info("type: {}", type);
+    logger().info("type: {}", static_cast<int>(type));
     logger().info("bcenter: ({},{},{})", bcenter[0], bcenter[1], bcenter[2]);
     logger().info("tcenter: ({},{},{})", tcenter[0], tcenter[1], tcenter[2]);
     logger().info("diffcenter: ({},{},{})", diffcenter[0], diffcenter[1],
@@ -75,7 +75,7 @@ class Cone {
 
 class SimpleTriangle {
  public:
-  SimpleTriangle() : normal(Vector3::Zero()){};
+  SimpleTriangle() : normal(Vector3::Zero()) {};
 
  public:
   inline void print_st_info() {

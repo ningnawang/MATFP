@@ -66,8 +66,6 @@ void update_sphere_ss_param_using_seeds(
         // could be 8 bbox points?
         continue;
 
-      logger().debug("mat {} has pid: {}", mat_p.tag, pid);
-      logger().debug("is_pts_selected[pid]: {}", is_pts_selected[pid]);
       if (!is_pts_selected[pid]) {
         mat_p.ss.pidx = pid;
         mat_p.ss.p = mat_p.dt_seed_pos[i];

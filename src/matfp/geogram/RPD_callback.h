@@ -56,11 +56,11 @@
 #include <geogram/basic/numeric.h>
 #include <geogram/mesh/mesh.h>
 
-namespace GEO {
-namespace Process {
-class SpinLockArray;
-}
-}  // namespace GEO
+// namespace GEO {
+// namespace Process {
+// class SpinLockArray;
+// }
+// }  // namespace GEO
 
 /**
  * \file geogram/voronoi/RVD_callback.h
